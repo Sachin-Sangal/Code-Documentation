@@ -26,6 +26,9 @@ See the generated file:
 [`logicapp-architecture.md`](./logicapp-architecture.md)  
 This documentation was automatically created by analyzing an Azure Logic App ARM template.
 
+<img width="850" height="732" alt="image" src="https://github.com/user-attachments/assets/85fd9460-2a6c-45c8-9cd7-6f28154264fa" />
+
+
 ## Tips
 - Works best with code that contains logical patterns, structured formats (like JSON, YAML, or ARM templates).
 - For large files, consider breaking them into smaller components to stay within OpenAI token limits.
