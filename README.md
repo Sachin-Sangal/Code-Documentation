@@ -18,6 +18,8 @@ This Node.js app lets you upload a file or project, then uses OpenAI to analyze 
    ```
 3. Use a tool like Postman or curl to POST a file to `http://localhost:3000/upload`
 
+<img width="762" height="423" alt="image" src="https://github.com/user-attachments/assets/cb5fc000-b59e-4cbb-bdc8-998ec8d7714f" />
+
 ## AI Service
 - The AI logic is in `src/services/aiService.js`. Replace the placeholder with your preferred AI API or model.
 
