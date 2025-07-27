@@ -1,0 +1,72 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "type": "string",
+      "defaultValue": "logicapp-inbound-outbound"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Logic/workflows",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('logicAppName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "Transform_JSON": {
+              "type": "Compose",
+              "inputs": {
+                "fullName": "@concat(triggerBody()?['firstName'], ' ', triggerBody()?['lastName'])",
+                "email": "@triggerBody()?['email']"
+              },
+              "runAfter": {}
+            },
+            "Send_HTTP_Response": {
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "https://webhook.site/your-outbound-endpoint",
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "fullName": "@outputs('Transform_JSON')?['fullName']",
+                  "email": "@outputs('Transform_JSON')?['email']"
+                }
+              },
+              "runAfter": {
+                "Transform_JSON": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "triggers": {
+            "manual": {
+              "type": "Request",
+              "kind": "Http",
+              "inputs": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "firstName": { "type": "string" },
+                    "lastName": { "type": "string" },
+                    "email": { "type": "string" }
+                  },
+                  "required": [ "firstName", "lastName", "email" ]
+                }
+              }
+            }
+          },
+          "outputs": {}
+        },
+        "parameters": {},
+        "state": "Enabled"
+      }
+    }
+  ]
+}
