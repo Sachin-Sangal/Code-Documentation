@@ -4,7 +4,8 @@ This Node.js app lets you upload a file or project, then uses OpenAI to analyze 
 
 ## Features
 - Upload a file via `/upload` endpoint (POST, form-data, key: `file`)
-- OpenAI analyzes the uploaded code and returns generated documentation
+- OpenAI analyzes the uploaded code 
+- Generates a clear, human-readable `.md` documentation file.
 
 ## How to Run
 1. Install dependencies:
@@ -19,3 +20,13 @@ This Node.js app lets you upload a file or project, then uses OpenAI to analyze 
 
 ## AI Service
 - The AI logic is in `src/services/aiService.js`. Replace the placeholder with your preferred AI API or model.
+
+## Example Output
+See the generated file:  
+[`logicapp-architecture.md`](./logicapp-architecture.md)  
+This documentation was automatically created by analyzing an Azure Logic App ARM template.
+
+## Tips
+- Works best with code that contains logical patterns, structured formats (like JSON, YAML, or ARM templates).
+- For large files, consider breaking them into smaller components to stay within OpenAI token limits.
+- Can be extended to work with other file formats and documentation styles.
